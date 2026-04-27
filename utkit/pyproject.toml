@@ -9,6 +9,7 @@ authors = [
 requires-python = ">=3.12"
 dependencies = [
     "typer>=0.20.0",
+    "zensical>=0.0.37",
 ]
 
 [project.scripts]
