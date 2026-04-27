@@ -7,10 +7,12 @@ authors = [
     { name = "TINS PJ", email = "tinspj1997@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "typer>=0.20.0",
+]
 
 [project.scripts]
-utkit = "utkit:main"
+utkit = "utkit.cli:main"
 
 [build-system]
 requires = ["uv_build >= 0.11.8, <0.12.0"]
