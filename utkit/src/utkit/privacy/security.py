@@ -4,7 +4,10 @@ from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.asymmetric import rsa, padding
 
 from typing import NewType
+from datetime import datetime, timedelta, timezone
 import secrets
+
+import jwt as pyjwt
 
 
 FernetKey = NewType("FernetKey", bytes)
@@ -133,3 +136,32 @@ def decrypt_rsa_content(encrypted_content, private_key_path):
 
 def generate_secret_key(byte_length: int = 32) -> str:
     return secrets.token_hex(byte_length)
+
+
+# ------------------------
+# JWT
+# ------------------------
+
+def create_access_token(
+    data: dict,
+    secret_key: str,
+    algorithm: str = "HS256",
+    expires_delta: timedelta | None = None,
+) -> str:
+    to_encode = data.copy()
+    expire = datetime.now(timezone.utc) + (expires_delta or timedelta(minutes=15))
+    to_encode.update({"exp": expire})
+    return pyjwt.encode(to_encode, secret_key, algorithm=algorithm)
+
+
+def decode_token(
+    token: str,
+    secret_key: str,
+    algorithm: str = "HS256",
+) -> dict:
+    try:
+        return pyjwt.decode(token, secret_key, algorithms=[algorithm])
+    except pyjwt.ExpiredSignatureError:
+        raise ValueError("Token has expired.")
+    except pyjwt.InvalidTokenError as e:
+        raise ValueError(f"Invalid token: {e}") from e

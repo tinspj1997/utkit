@@ -4,7 +4,7 @@ icon: lucide/lock
 
 # Security
 
-The `utkit.privacy.security` module provides cryptographic utilities for symmetric encryption (Fernet), asymmetric encryption (RSA), and secure key generation.
+The `utkit.privacy.security` module provides cryptographic utilities for symmetric encryption (Fernet), asymmetric encryption (RSA), secure key generation, and JWT token creation and verification.
 
 ## Installation
 
@@ -222,3 +222,78 @@ def generate_secret_key(byte_length: int = 32) -> str
 secret = generate_secret_key()       # 64-char hex string
 short  = generate_secret_key(16)     # 32-char hex string
 ```
+
+---
+
+## JWT
+
+`pyjwt` is a core dependency — no extra installation required.
+
+### `create_access_token`
+
+Creates a signed JWT access token with an expiry claim.
+
+```python
+def create_access_token(
+    data: dict,
+    secret_key: str,
+    algorithm: str = "HS256",
+    expires_delta: timedelta | None = None,
+) -> str
+```
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `data` | `dict` | — | Payload claims to encode (e.g. `{"sub": "user_id"}`) |
+| `secret_key` | `str` | — | Secret used to sign the token |
+| `algorithm` | `str` | `"HS256"` | JWT signing algorithm |
+| `expires_delta` | `timedelta \| None` | `None` | Token lifetime. Defaults to 15 minutes if not provided. |
+
+**Returns:** `str` — the signed JWT string.
+
+```python
+from datetime import timedelta
+from utkit.privacy.security import create_access_token, generate_secret_key
+
+secret = generate_secret_key()
+token = create_access_token(
+    data={"sub": "user_123", "role": "admin"},
+    secret_key=secret,
+    expires_delta=timedelta(hours=1),
+)
+```
+
+---
+
+### `decode_token`
+
+Decodes and verifies a JWT token, returning the payload.
+
+```python
+def decode_token(
+    token: str,
+    secret_key: str,
+    algorithm: str = "HS256",
+) -> dict
+```
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `token` | `str` | — | The JWT string to decode |
+| `secret_key` | `str` | — | Secret used to verify the token signature |
+| `algorithm` | `str` | `"HS256"` | JWT signing algorithm |
+
+**Returns:** `dict` — the decoded payload claims.
+
+**Raises:**
+- `ValueError("Token has expired.")` — if the token's `exp` claim is in the past
+- `ValueError("Invalid token: ...")` — if the signature is invalid or the token is malformed
+
+```python
+from utkit.privacy.security import decode_token
+
+payload = decode_token(token, secret_key=secret)
+print(payload["sub"])   # "user_123"
+print(payload["role"])  # "admin"
+```
+
