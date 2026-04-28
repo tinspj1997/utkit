@@ -64,6 +64,9 @@ nav = [
   { "Store" = [
     { "Redis" = "store/redis.md" },
   ]},
+  { "Template" = [
+    { "Rendering" = "template/render.md" },
+  ]},
   { "Utils" = [
     { "Performance" = "utils/performance.md" },
   ]},

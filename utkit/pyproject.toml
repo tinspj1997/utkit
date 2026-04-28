@@ -9,10 +9,10 @@ authors = [
 requires-python = ">=3.12"
 dependencies = [
     "cryptography>=47.0.0",
+   
     "loguru>=0.7.3",
     "pwdlib[argon2]>=0.3.0",
     "pyjwt>=2.12.1",
-   
     "typer>=0.20.0",
     "zensical>=0.0.37",
 ]
@@ -24,6 +24,7 @@ api=[
 ]
 standard=[
     "psutil>=7.2.2",
+     "jinja2>=3.1.6",
 ]
 store=[
      "redis>=7.4.0",
