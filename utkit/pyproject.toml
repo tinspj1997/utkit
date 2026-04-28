@@ -19,6 +19,7 @@ dependencies = [
 [project.optional-dependencies]
 api=[
  "slowapi>=0.1.9",
+ "pydantic>=2.13.3",
 ]
 
 [project.scripts]
