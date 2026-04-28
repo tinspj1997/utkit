@@ -46,8 +46,20 @@ Copyright &copy; 2026 TINS PJ. All rights reserved.
 # Read more: https://zensical.org/docs/setup/navigation/
 nav = [
   { "Get started" = "index.md" },
+  { "Auth" = "auth.md" },
   { "Communication" = [
     { "Mail (SMTP)" = "communication/mail.md" },
+  ]},
+  { "API" = [
+    { "Rate Limiting" = "api/rate-limit.md" },
+    { "Schema" = "api/schema.md" },
+  ]},
+  { "Core" = [
+    { "Logging" = "core/logging.md" },
+    { "Security" = "core/security.md" },
+  ]},
+  { "Utils" = [
+    { "Performance" = "utils/performance.md" },
   ]},
 ]
 
