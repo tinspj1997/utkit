@@ -11,7 +11,7 @@
 # The site_name is shown in the page header and the browser window title
 #
 # Read more: https://zensical.org/docs/setup/basics/#site_name
-site_name = "Utkit"
+site_name = "Documentation"
 
 # The site_description is included in the HTML head and should contain a
 # meaningful description of the site content for use by search engines.
@@ -80,7 +80,7 @@ nav = [
 #
 # Read more: https://zensical.org/docs/customization/#additional-css
 #
-#extra_css = ["stylesheets/extra.css"]
+extra_css = ["stylesheets/extra.css"]
 
 # With the `extra_javascript` option you can add your own JavaScript to your
 # project to customize the behavior according to your needs.
@@ -277,7 +277,7 @@ features = [
 # option in the "theme" subsection. The logo must be a relative path to a file
 # in your "docs_dir", e.g., to use `docs/assets/logo.png` you would set:
 # ----------------------------------------------------------------------------
-#logo = "assets/logo.png"
+logo = "images/logo.png"
 
 # ----------------------------------------------------------------------------
 # If you don't have a dedicated project logo, you can use a built-in icon from
