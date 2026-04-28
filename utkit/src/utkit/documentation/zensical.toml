@@ -58,6 +58,9 @@ nav = [
     { "Logging" = "core/logging.md" },
     { "Security" = "core/security.md" },
   ]},
+  { "Store" = [
+    { "Redis" = "store/redis.md" },
+  ]},
   { "Utils" = [
     { "Performance" = "utils/performance.md" },
   ]},
