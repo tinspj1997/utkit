@@ -54,10 +54,12 @@ nav = [
     { "Rate Limiting" = "api/rate-limit.md" },
     { "Schema" = "api/schema.md" },
   ]},
+  { "Privacy" = [
+    { "Masking" = "privacy/mask.md" },
+    { "Security" = "privacy/security.md" },
+  ]},
   { "Core" = [
     { "Logging" = "core/logging.md" },
-    { "Masking" = "core/mask.md" },
-    { "Security" = "core/security.md" },
   ]},
   { "Store" = [
     { "Redis" = "store/redis.md" },

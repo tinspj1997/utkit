@@ -4,7 +4,7 @@ icon: lucide/eye-off
 
 # Masking
 
-The `utkit.core.mask` module provides utilities for masking sensitive data such as email addresses, phone numbers, payment card numbers, and arbitrary strings before displaying or logging them.
+The `utkit.privacy.mask` module provides utilities for masking sensitive data such as email addresses, phone numbers, payment card numbers, and arbitrary strings before displaying or logging them.
 
 No external dependencies are required — the module uses Python's built-in `re` library.
 
@@ -13,7 +13,7 @@ No external dependencies are required — the module uses Python's built-in `re`
 ## Quick start
 
 ```python
-from utkit.core.mask import mask_email, mask_phone, mask_card, mask_string
+from utkit.privacy.mask import mask_email, mask_phone, mask_card, mask_string
 
 mask_email("john.doe@example.com")   # "jo******@example.com"
 mask_phone("+1 (555) 123-4567")      # "*******4567"

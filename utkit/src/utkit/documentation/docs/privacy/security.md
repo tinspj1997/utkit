@@ -4,7 +4,7 @@ icon: lucide/lock
 
 # Security
 
-The `utkit.core.security` module provides cryptographic utilities for symmetric encryption (Fernet), asymmetric encryption (RSA), and secure key generation.
+The `utkit.privacy.security` module provides cryptographic utilities for symmetric encryption (Fernet), asymmetric encryption (RSA), and secure key generation.
 
 ## Installation
 
@@ -26,7 +26,7 @@ uv add utkit
 
 ```python
 import asyncio
-from utkit.core.security import (
+from utkit.privacy.security import (
     generate_fernet_key,
     encrypt,
     decrypt,
