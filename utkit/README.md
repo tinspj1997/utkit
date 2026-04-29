@@ -6,8 +6,8 @@
 
 **utkit** is a collection of core libraries for Python development, providing ready-to-use utilities for common tasks such as authentication, email, encryption, caching, rate limiting, and more.
 
-- **Version:** `0.4.0`
-- **Author:** TINS PJ
+
+- **Author:** TINS P JOSEPH
 - **Requires:** Python `>=3.12`
 - **License:** MIT
 - **PyPI:** [pypi.org/project/utkit](https://pypi.org/project/utkit/)
