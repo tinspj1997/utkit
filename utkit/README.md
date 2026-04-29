@@ -1,13 +1,13 @@
 # utkit
 
 <div style="text-align: center; margin: 1.5rem 0;">
-  <img src="src/utkit/documentation/docs/images/logo.png" alt="utkit" style="height: 100px; width: auto;" />
+  <img src="https://res.cloudinary.com/daft06bly/image/upload/v1777439163/logo_wussdc.png" alt="utkit" style="height: 100px; width: auto;" />
 </div>
 
 **utkit** is a collection of core libraries for Python development, providing ready-to-use utilities for common tasks such as authentication, email, encryption, caching, rate limiting, and more.
 
-- **Version:** `0.4.0`
-- **Author:** TINS PJ
+
+- **Author:** TINS P JOSEPH
 - **Requires:** Python `>=3.12`
 - **License:** MIT
 - **PyPI:** [pypi.org/project/utkit](https://pypi.org/project/utkit/)
