@@ -1,6 +1,6 @@
 [project]
 name = "utkit"
-version = "0.8.0"
+version = "0.9.0"
 description = "core libraries for development"
 readme = "README.md"
 authors = [
