@@ -4,7 +4,7 @@ icon: lucide/mail
 
 # Mail
 
-The `utkit.communication.mail.smtp` module provides a simple interface for sending HTML emails over SMTP.
+The `utkit.communication.mail.smtp` module provides a simple interface for sending emails (plain text or HTML) over SMTP.
 
 ## Installation
 
@@ -54,7 +54,7 @@ class SMTPConfig:
 | `port` | `int` | Yes | SMTP port — use `587` for STARTTLS, `465` for SSL |
 | `username` | `str` | Yes | SMTP login username |
 | `password` | `str` | Yes | SMTP login password or app password |
-| `use_tls` | `bool` | No | `True` uses STARTTLS (default), `False` uses SMTP_SSL |
+| `use_tls` | `bool` | No | `True` uses STARTTLS (default), `False` uses SMTP_SSL (note: `port` determines the method) |
 
 ---
 
@@ -68,10 +68,11 @@ class MailMessage:
     subject: str
     from_address: str
     to: list[str]
-    html: str
     cc: list[str] = field(default_factory=list)
     bcc: list[str] = field(default_factory=list)
     reply_to: str | None = None
+    text: str | None = None
+    html: str | None = None
 ```
 
 | Field | Type | Required | Description |
@@ -79,10 +80,13 @@ class MailMessage:
 | `subject` | `str` | Yes | Email subject line |
 | `from_address` | `str` | Yes | Sender email address |
 | `to` | `list[str]` | Yes | List of recipient email addresses |
-| `html` | `str` | Yes | HTML body of the email |
 | `cc` | `list[str]` | No | CC recipients (default: empty) |
 | `bcc` | `list[str]` | No | BCC recipients (default: empty) |
 | `reply_to` | `str \| None` | No | Reply-To address (default: `None`) |
+| `text` | `str \| None` | No | Plain text body (default: `None`) |
+| `html` | `str \| None` | No | HTML body (default: `None`) |
+
+**Note:** At least one of `text` or `html` must be provided, otherwise a `ValueError` is raised.
 
 ---
 
@@ -99,11 +103,24 @@ def send_mail(config: SMTPConfig, message: MailMessage) -> None
 | `config` | `SMTPConfig` | SMTP server connection settings |
 | `message` | `MailMessage` | Email content and addressing details |
 
-Raises `smtplib.SMTPException` on delivery failure.
+**Raises:**
+- `ValueError` — If both `text` and `html` are `None`, or if `port` is not 465 or 587
+- `smtplib.SMTPException` — On delivery failure
 
 ---
 
 ## Examples
+
+### Plain text email
+
+```python
+message = MailMessage(
+    subject="Hello",
+    from_address="sender@example.com",
+    to=["recipient@example.com"],
+    text="This is a plain text email.\nMultiple lines supported.",
+)
+```
 
 ### With CC and BCC
 
@@ -115,6 +132,18 @@ message = MailMessage(
     cc=["bob@example.com"],
     bcc=["audit@example.com"],
     html="<p>Please find the update below.</p>",
+)
+```
+
+### Multipart (text + HTML fallback)
+
+```python
+message = MailMessage(
+    subject="Welcome",
+    from_address="sender@example.com",
+    to=["user@example.com"],
+    text="Welcome! View this email in HTML for best experience.",
+    html="<h1>Welcome!</h1><p>This is the HTML version.</p>",
 )
 ```
 
@@ -138,6 +167,11 @@ config = SMTPConfig(
     port=465,
     username="sender@example.com",
     password="secret",
-    use_tls=False,  # use SMTP_SSL
 )
 ```
+
+Port 465 automatically uses SMTP_SSL. Port 587 uses STARTTLS.
+
+---
+
+
