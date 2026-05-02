@@ -83,7 +83,7 @@ utkit --version
 | typer | `>=0.20.0` | CLI framework |
 | cryptography | `>=47.0.0` | Fernet & RSA encryption |
 | loguru | `>=0.7.3` | Logging |
-| pwdlib[argon2] | `>=0.3.0` | Password hashing |
+| pwdlib\[argon2\] | `>=0.3.0` | Password hashing |
 | pyjwt | `>=2.12.1` | JWT token creation & verification |
 | zensical | `>=0.0.37` | Documentation server |
 
