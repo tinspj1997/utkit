@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import mimetypes
 import os
 from dataclasses import dataclass
 from typing import Any
@@ -19,16 +20,19 @@ class S3Client:
         bucket: str,
         object_name: str | None = None,
         extra_args: dict | None = None,
+        content_type: str | None = None,
     ) -> bool:
-        # If S3 object_name was not specified, use file_name
         if object_name is None:
             object_name = os.path.basename(file_name)
 
-        # Upload the file
-        if extra_args:
-            self.client.upload_file(file_name, bucket, object_name, ExtraArgs=extra_args)
-        else:
-            self.client.upload_file(file_name, bucket, object_name)
+        if content_type is None:
+            content_type, _ = mimetypes.guess_type(file_name)
+
+        extra_args = extra_args or {}
+        if content_type:
+            extra_args["ContentType"] = content_type
+
+        self.client.upload_file(file_name, bucket, object_name, ExtraArgs=extra_args)
         return True
 
     def upload_fileobj(
@@ -37,11 +41,16 @@ class S3Client:
         bucket: str,
         object_name: str,
         extra_args: dict | None = None,
+        content_type: str | None = None,
     ) -> bool:
-        if extra_args:
-            self.client.upload_fileobj(file_obj, bucket, object_name, ExtraArgs=extra_args)
-        else:
-            self.client.upload_fileobj(file_obj, bucket, object_name)
+        if content_type is None:
+            content_type, _ = mimetypes.guess_type(object_name)
+
+        extra_args = extra_args or {}
+        if content_type:
+            extra_args["ContentType"] = content_type
+
+        self.client.upload_fileobj(file_obj, bucket, object_name, ExtraArgs=extra_args)
         return True
 
     def download_file(
@@ -75,10 +84,24 @@ class S3Client:
         bucket: str,
         object_name: str,
         expiration: int = 3600,
+        inline: bool = False,
+        content_type: str | None = None,
     ) -> str | None:
+        params: dict[str, Any] = {
+            "Bucket": bucket,
+            "Key": object_name,
+        }
+
+        if inline:
+            params["ResponseContentDisposition"] = "inline"
+            if content_type is None:
+                content_type, _ = mimetypes.guess_type(object_name)
+            if content_type:
+                params["ResponseContentType"] = content_type
+
         response = self.client.generate_presigned_url(
             "get_object",
-            Params={"Bucket": bucket, "Key": object_name},
+            Params=params,
             ExpiresIn=expiration,
         )
         return response
