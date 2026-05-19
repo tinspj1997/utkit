@@ -64,3 +64,4 @@ Retrieves a database by name.
 - **Parameters**:
   - `name` (str): The name of the database to retrieve.
 - **Returns**: An asynchronous MongoDB database object.
+- **Error Handling**: Raises a `RuntimeError` if the database retrieval fails.

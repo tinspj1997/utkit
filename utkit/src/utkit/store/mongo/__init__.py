@@ -1,9 +1,22 @@
-from pymongo import AsyncMongoClient
+from pymongo import AsyncMongoClient,MongoClient as SyncMongoClient
+import certifi
 
 
 class MongoClient:
-    def __init__(self, uri: str):
-        self.client = AsyncMongoClient(uri)
+    def __new__(cls, uri: str,type: str = "async") -> AsyncMongoClient | SyncMongoClient:
+        instance = super().__new__(cls)
 
-    async def get_database(self, name: str):
-        return self.client[name]
+        if type == "async":
+            instance.client = AsyncMongoClient(
+                uri,
+                tls=True,
+                tlsCAFile=certifi.where()
+            )
+        else:
+            instance.client = SyncMongoClient(
+                uri,
+                tls=True,
+                tlsCAFile=certifi.where()
+            )
+
+        return instance.client
