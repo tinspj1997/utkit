@@ -129,37 +129,30 @@ redis.delete("session:abc")
 
 ### `exists`
 
-Checks whether a key exists in Redis.
-
 ```python
 def exists(self, key: str) -> bool
 ```
 
-| Parameter | Type | Description |
-|---|---|---|
-| `key` | `str` | The Redis key to check |
+Checks if a key exists in the Redis store.
 
-**Returns:** `bool` — `True` if the key exists, `False` otherwise.
-
-```python
-if redis.exists("session:abc"):
-    print("Session is active")
-```
+- **Parameters**:
+  - `key` (str): The key to check.
+- **Returns**: `True` if the key exists, `False` otherwise.
 
 ---
 
 ### `expire`
 
-Sets or updates the TTL (time-to-live) of an existing key.
-
 ```python
 def expire(self, key: str, ttl: int) -> bool
 ```
 
-| Parameter | Type | Description |
-|---|---|---|
-| `key` | `str` | The Redis key to update |
-| `ttl` | `int` | Expiry time in seconds |
+Sets a time-to-live (TTL) for a key in the Redis store.
+
+- **Parameters**:
+  - `key` (str): The key to set the TTL for.
+  - `ttl` (int): Time-to-live in seconds.
+- **Returns**: `True` if the TTL was set successfully, `False` otherwise.
 
 **Returns:** `bool` — `True` if the TTL was set, `False` if the key does not exist.
 

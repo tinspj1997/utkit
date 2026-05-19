@@ -64,6 +64,7 @@ nav = [
   { "Store" = [
     { "Redis" = "store/redis.md" },
     { "AWS S3" = "store/s3.md" },
+    { "MongoDB" = "store/mongo.md" },
   ]},
   { "Template" = [
     { "Rendering" = "template/render.md" },
