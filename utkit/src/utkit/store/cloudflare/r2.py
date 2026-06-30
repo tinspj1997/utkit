@@ -7,18 +7,18 @@ class R2Client:
     def __init__(
         self,
         account_id: Optional[str] = None,
-        access_key: Optional[str] = None,
+        access_key_id: Optional[str] = None,
         secret_key: Optional[str] = None,
     ):
         # Fetch from environment variables if not provided
-        self.account_id = account_id or os.getenv("R2_ACCESS_KEY_ID")
-        self.access_key = access_key or os.getenv("R2_ACCESS_KEY")
+        self.account_id = account_id or os.getenv("R2_ACCOUNT_ID")
+        self.access_key_id = access_key_id or os.getenv("R2_ACCESS_KEY_ID")
         self.secret_key = secret_key or os.getenv("R2_SECRET_ACCESS_KEY")
 
         # Validate required values
-        if not self.account_id or not self.access_key or not self.secret_key:
+        if not self.account_id or not self.access_key_id or not self.secret_key:
             raise ValueError(
-                "R2 credentials missing. Please provide account_id, access_key, and secret_key either as parameters or via environment variables (R2_ACCESS_KEY_ID, R2_ACCESS_KEY, R2_SECRET_ACCESS_KEY)"
+                "R2 credentials missing. Please provide account_id, access_key_id, and secret_key either as parameters or via environment variables (R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY)"
             )
 
         # Get endpoint from environment or generate from account_id
@@ -32,7 +32,7 @@ class R2Client:
         self.client = boto3.client(
             service_name="s3",
             endpoint_url=self.base_url,
-            aws_access_key_id=self.access_key,
+            aws_access_key_id=self.access_key_id,
             aws_secret_access_key=self.secret_key,
             region_name="auto",
         )
