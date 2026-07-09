@@ -1,6 +1,6 @@
 from collections import defaultdict
 import hashlib
-
+import magic
 
 def get_file_checksum(file_path, algorithm="sha256", chunk_size=8192):
     """
@@ -33,8 +33,7 @@ def get_file_type(file_path):
     Returns:
         str: File type identifier ("pdf", "docx", "csv", "xlsx", "xls", "png", "jpeg", "jpg", "unknown")
     """
-    import magic
-
+    
     # Read file content
     with open(file_path, "rb") as f:
         data = f.read()
