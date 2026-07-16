@@ -1,6 +1,26 @@
 from collections import defaultdict
-
+import hashlib
 import magic
+
+def get_file_checksum(file_path, algorithm="sha256", chunk_size=8192):
+    """
+    Calculate a file checksum by reading the file in chunks.
+
+    Args:
+        file_path: Path to the file to checksum
+        algorithm: Hash algorithm supported by hashlib (default: "sha256")
+        chunk_size: Number of bytes to read at a time
+
+    Returns:
+        str: Hex digest of the file checksum
+    """
+    hasher = hashlib.new(algorithm)
+
+    with open(file_path, "rb") as f:
+        for chunk in iter(lambda: f.read(chunk_size), b""):
+            hasher.update(chunk)
+
+    return hasher.hexdigest()
 
 
 def get_file_type(file_path):
@@ -13,6 +33,7 @@ def get_file_type(file_path):
     Returns:
         str: File type identifier ("pdf", "docx", "csv", "xlsx", "xls", "png", "jpeg", "jpg", "unknown")
     """
+    
     # Read file content
     with open(file_path, "rb") as f:
         data = f.read()

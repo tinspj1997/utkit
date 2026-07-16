@@ -95,6 +95,7 @@ utkit --version
 | `api` | pydantic | `>=2.13.3` |
 | `standard` | psutil | `>=7.2.2` |
 | `standard` | jinja2 | `>=3.1.6` |
+| `standard` | python-magic | `>=0.4.27` |
 | `store` | redis | `>=7.4.0` |
 | `all` | all of the above | — |
 
@@ -132,8 +133,7 @@ utkit docs
 |---|---|---|
 | [`api.rate_limit`](api/rate-limit.md) | `api` | Rate limiting for FastAPI via SlowAPI |
 | [`api.schema`](api/schema.md) | `api` | Reusable Pydantic query models (pagination) |
-| [`utils.performance`](utils/performance.md) | `standard` | Execution time decorator and memory usage |
-| [`template.render`](template/render.md) | `standard` | HTML rendering from Jinja2 files and strings |
+| [`utils.performance`](utils/performance.md) | `standard` | Execution time decorator and memory usage || [`utils.file`](utils/file.md) | `standard` | File checksum and content-based type detection || [`template.render`](template/render.md) | `standard` | HTML rendering from Jinja2 files and strings |
 | [`store.redis`](store/redis.md) | `store` | Singleton Redis client with JSON serialisation |
 
 ---
