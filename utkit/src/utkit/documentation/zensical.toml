@@ -73,6 +73,7 @@ nav = [
   { "Utils" = [
     { "Performance" = "utils/performance.md" },
     { "File" = "utils/file.md" },
+    { "PDF" = "utils/pdf.md" },
   ]},
   { "Validators" = [
     { "Data" = "validators/data.md" },
