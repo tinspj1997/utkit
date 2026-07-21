@@ -13,16 +13,16 @@ The `utkit.utils.pdf` module provides utilities for analyzing and converting PDF
 `PyMuPDF` (`fitz`) is required for all PDF operations. Install it with pip:
 
 ```bash
-pip install utkit[pdf]
+pip install utkit[all]
 ```
 
 Or with [uv](https://docs.astral.sh/uv/):
 
 ```bash
-uv add "utkit[pdf]"
+uv add "utkit[all]"
 ```
 
-> `PyMuPDF` is **not** included in any of the existing extras (`standard`, `store`, `api`). You need to install it separately.
+> `PyMuPDF` is now included in the `all` extra category, which combines all optional dependencies.
 
 ---
 
