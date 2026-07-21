@@ -4,13 +4,13 @@ icon: lucide/file
 
 # File utilities
 
-The `utkit.utils.file` module provides lightweight helpers for working with files: computing content checksums and identifying file types from their binary content (magic numbers).
+The `utkit.utils.file` module provides lightweight helpers for working with files: computing content checksums, identifying file types from binary content, and encoding files for transfer or display.
 
 ---
 
 ## Installation
 
-`python-magic` is part of the optional `standard` extras. Install `utkit` with the `standard` extra for file-type detection support:
+`python-magic` is required for content-based file type detection. Install the `standard` extra:
 
 ```bash
 pip install "utkit[standard]"
@@ -22,22 +22,27 @@ Or with [uv](https://docs.astral.sh/uv/):
 uv add "utkit[standard]"
 ```
 
-> `python-magic` is only required for `get_file_type`. The `get_file_checksum` function relies solely on the standard library (`hashlib`) and has no external dependencies.
+> `get_file_checksum` and `encode_file` use only the Python standard library. `get_file_type` requires `python-magic`.
 
 ---
 
 ## Quick start
 
 ```python
-from utkit.utils.file import get_file_checksum, get_file_type
+from utkit.utils.file import encode_file, get_file_checksum, get_file_type
 
-# Compute a SHA-256 checksum of a file
+# Compute a SHA-256 checksum
 checksum = get_file_checksum("report.pdf")
 print(checksum)  # "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
 
-# Identify a file's type from its content
+# Identify a file type from its content
 file_type = get_file_type("report.pdf")
 print(file_type)  # "pdf"
+
+# Encode a file as Base64 with MIME type detection
+encoded = encode_file("report.pdf")
+print(encoded["mime_type"])  # "application/pdf"
+print(encoded["url"])        # "data:application/pdf;base64,..."
 ```
 
 ---
@@ -131,4 +136,50 @@ from utkit.utils.file import get_file_type
 
 file_type = get_file_type("notes.txt")
 print(file_type)  # "unknown" (plain text is not in the recognised set)
+```
+
+---
+
+## `encode_file`
+
+Encode a file as Base64 and return a dictionary containing the MIME type, encoded content, and a data URL.
+
+```python
+def encode_file(file_path: str | Path) -> dict[str, str]
+```
+
+| Parameter | Type | Description |
+|---|---|---|
+| `file_path` | `str \| Path` | Path to the file to encode. |
+
+**Returns:** `dict[str, str]` — A dictionary with three keys:
+
+| Key | Description |
+|---|---|
+| `mime_type` | MIME type detected from the file extension |
+| `data` | Base64-encoded file content |
+| `url` | Data URL combining MIME type and encoded content |
+
+### Basic encoding
+
+```python
+from utkit.utils.file import encode_file
+
+result = encode_file("document.pdf")
+print(result)
+# {
+#     "mime_type": "application/pdf",
+#     "data": "...base64-encoded-content...",
+#     "url": "data:application/pdf;base64,..."
+# }
+```
+
+### Using the data URL
+
+```python
+from utkit.utils.file import encode_file
+
+result = encode_file("image.png")
+print(f"Data URL: {result['url']}")
+# Data URL can be used directly in HTML img tags or other applications
 ```

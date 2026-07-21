@@ -1,6 +1,9 @@
 from collections import defaultdict
 import hashlib
 import magic
+import base64
+import mimetypes
+from pathlib import Path
 
 def get_file_checksum(file_path, algorithm="sha256", chunk_size=8192):
     """
@@ -58,3 +61,26 @@ def get_file_type(file_path):
     )
 
     return mime_to_type[mime_type]
+
+
+def encode_file(file_path: str | Path) -> dict[str, str]:
+    """
+    Encode a file as Base64.
+
+    Returns:
+    {
+        "mime_type": "application/pdf",
+        "data": "...",
+        "url": "data:application/pdf;base64,..."
+    }
+    """
+    path = Path(file_path)
+    mime_type, _ = mimetypes.guess_type(path)
+    mime_type = mime_type or "application/octet-stream"
+    with path.open("rb") as f:
+        encoded = base64.b64encode(f.read()).decode("utf-8")
+    return {
+        "mime_type": mime_type,
+        "data": encoded,
+        "url": f"data:{mime_type};base64,{encoded}",
+    }
