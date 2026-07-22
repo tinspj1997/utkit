@@ -11,6 +11,7 @@
 - **Requires:** Python `>=3.12`
 - **License:** MIT
 - **PyPI:** [pypi.org/project/utkit](https://pypi.org/project/utkit/)
+- **Cloud Documentation:** [Get started - Documentation](https://tinspj1997.github.io/utkit/)
 
 ---
 
@@ -35,6 +36,8 @@ uv add utkit
 | `store` | `redis` | Redis cache and key-value store |
 | `all` | all of the above | Install every optional dependency at once |
 
+**pip:**
+
 ```bash
 pip install "utkit[api]"
 pip install "utkit[standard]"
@@ -42,6 +45,23 @@ pip install "utkit[store]"
 
 # All optional dependencies at once
 pip install "utkit[all]"
+```
+
+**uv:**
+
+```bash
+uv add "utkit[api]"
+uv add "utkit[standard]"
+uv add "utkit[store]"
+
+# All optional dependencies at once
+uv add "utkit[all]"
+```
+
+Verify the installed version:
+
+```bash
+utkit --version
 ```
 
 ---
@@ -64,6 +84,7 @@ pip install "utkit[all]"
 | `api.rate_limit` | `api` | Rate limiting for FastAPI via SlowAPI |
 | `api.schema` | `api` | Reusable Pydantic query models (pagination) |
 | `utils.performance` | `standard` | Execution time decorator and memory usage |
+| `utils.file` | `standard` | File checksum, content-based type detection, and file size |
 | `template.render` | `standard` | HTML rendering from Jinja2 files and strings |
 | `store.redis` | `store` | Singleton Redis client with JSON serialisation |
 
@@ -71,7 +92,13 @@ pip install "utkit[all]"
 
 ## CLI
 
+utkit ships with a command-line interface.
+
 ```bash
+# Show version
 utkit --version
+utkit version
+
+# Serve documentation locally on port 8005
 utkit docs
 ```
