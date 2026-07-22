@@ -4,6 +4,9 @@ import magic
 import base64
 import mimetypes
 from pathlib import Path
+from typing import Literal
+
+SizeUnit = Literal["B", "KB", "MB", "GB", "TB"]
 
 def get_file_checksum(file_path, algorithm="sha256", chunk_size=8192):
     """
@@ -84,3 +87,29 @@ def encode_file(file_path: str | Path) -> dict[str, str]:
         "data": encoded,
         "url": f"data:{mime_type};base64,{encoded}",
     }
+
+
+def get_file_size(
+    path: str | Path,
+    unit: SizeUnit = "B",
+    precision: int = 2,
+) -> float:
+    """
+    Return the file size in the requested unit.
+
+    Example:
+        get_file_size("chart.png", "KB") -> 245.83
+        get_file_size("chart.png", "B") -> 145062.83
+    """
+    path = Path(path)
+    size = path.stat().st_size
+
+    factors = {
+        "B": 1,
+        "KB": 1024,
+        "MB": 1024**2,
+        "GB": 1024**3,
+        "TB": 1024**4,
+    }
+
+    return round(size / factors[unit], precision)
