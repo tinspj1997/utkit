@@ -56,10 +56,12 @@ def get_file_type(file_path):
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "docx",
             "text/csv": "csv",
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "xlsx",
+            "application/vnd.openxmlformats-officedocument.presentationml.presentation": "pptx",
             "application/vnd.ms-excel": "xls",
             "image/png": "png",
             "image/jpeg": "jpeg",
             "image/jpg": "jpg",
+            "text/plain": "txt",
         },
     )
 
