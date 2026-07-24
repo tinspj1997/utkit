@@ -44,10 +44,17 @@ def setup_logging(
     log_path = Path(log_base_path)
     log_path.mkdir(exist_ok=True)
 
+    def _default_app_type(record):
+        """Default patcher: set type='app' unless explicitly set already."""
+        if "type" not in record["extra"]:
+            record["extra"]["type"] = "app"
+
     def default_patcher(record):
         for patcher in patchers or []:
             patcher(record)
 
+    # Always add default patcher at the end
+    patchers.append(_default_app_type)
     patchers.append(_add_class_name)
     logger.remove()
     logger.configure(patcher=default_patcher)
