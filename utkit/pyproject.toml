@@ -32,6 +32,10 @@ store=[
       "certifi>=2026.4.22",
       "pymongo[srv]>=4.17.0",
 ]
+
+vishualize=[
+    "matplotlib>=3.11.1",
+]
 all=[
     "cryptography>=47.0.0",
     "loguru>=0.7.3",

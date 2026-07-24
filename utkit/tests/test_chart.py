@@ -1,8 +1,7 @@
 """Single test file for chart functionality."""
 from pathlib import Path
 
-from utkit.visualize.charts.line import create_line_chart
-from utkit.visualize.charts.bar import create_bar_chart
+from utkit.visualize.charts import create_bar_chart, create_line_chart
 
 
 def test_line_chart_creation_and_view() -> None:

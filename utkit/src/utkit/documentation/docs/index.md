@@ -41,7 +41,8 @@ utkit ships optional extras for additional functionality. Install only the extra
 |---|---|---|
 | `api` | `slowapi`, `pydantic` | Rate limiting and API schema for FastAPI |
 | `standard` | `psutil`, `jinja2` | Performance monitoring and HTML template rendering |
-| `store` | `redis` | Redis cache and key-value store |
+| `store` | `redis`, `boto3`, `pymongo`, `certifi` | Redis, S3, R2, and MongoDB storage backends |
+| `vishualize` | `matplotlib` | Bar charts and line charts |
 | `all` | all of the above | Install every optional dependency at once |
 
 **pip:**
@@ -50,6 +51,7 @@ utkit ships optional extras for additional functionality. Install only the extra
 pip install "utkit[api]"
 pip install "utkit[standard]"
 pip install "utkit[store]"
+pip install "utkit[vishualize]"
 
 # All optional dependencies at once
 pip install "utkit[all]"
@@ -61,6 +63,7 @@ pip install "utkit[all]"
 uv add "utkit[api]"
 uv add "utkit[standard]"
 uv add "utkit[store]"
+uv add "utkit[vishualize]"
 
 # All optional dependencies at once
 uv add "utkit[all]"
